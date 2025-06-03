@@ -55,7 +55,7 @@ if page == "Início":
     Bem-vindo à aplicação de reconhecimento de dígitos manuscritos! Este projeto utiliza um modelo SVM com kernel RBF, treinado no dataset MNIST, alcançando **97% de acurácia**. Navegue pelo menu para desenhar dígitos, carregar imagens, visualizar resultados ou saber mais sobre o projeto.
     """)
     try:
-        st.image("project_image.png", caption="Visão geral do projeto", width=600)
+        st.image("imagem_do_projecto.jpg", caption="Visão geral do projeto", width=600)
     except FileNotFoundError:
         st.warning("Imagem do projeto não encontrada.")
 
