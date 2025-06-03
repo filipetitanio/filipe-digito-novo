@@ -53,9 +53,9 @@ if page == "Início":
     st.markdown("""
     Bem-vindo à aplicação de reconhecimento de dígitos manuscritos! Este projeto utiliza um modelo SVM com kernel RBF, treinado no dataset MNIST, alcançando **97% de acurácia**. Navegue pelo menu para desenhar dígitos, carregar imagens, visualizar resultados ou saber mais sobre o projeto.
     """)
-    try:
-        st.image("project_image.png", caption="Visão geral do projeto", width=600)
-    except FileNotFoundError:
+    if os.path.exists("new_project_image.png"):
+        st.image("new_project_image.png", caption="Visão geral do projeto", use_column_width=True)
+    else:
         st.warning("Imagem do projeto não encontrada.")
 
 # Página Prever Dígito
@@ -77,7 +77,7 @@ elif page == "Prever Dígito":
             height=150,
             width=150,
             drawing_mode="freedraw",
-            key="canvas",
+            key="canvas_unique",  # Chave única para evitar conflitos
         )
 
         if canvas_result.image_data is not None:
@@ -91,7 +91,7 @@ elif page == "Prever Dígito":
     with tab2:
         st.subheader("Carregar Imagem")
         st.markdown("Carregue uma imagem 28x28 (PNG/JPG) em escala de cinza.")
-        uploaded_file = st.file_uploader("Escolha a imagem", type=["png", "jpg"])
+        uploaded_file = st.file_uploader("Escolha a imagem", type=["png", "jpg"], key="uploader_unique")
 
         if uploaded_file is not None:
             image = Image.open(uploaded_file).convert('L')
@@ -109,9 +109,9 @@ elif page == "Resultados":
     if X_test is not None and y_test is not None:
         # Matriz de confusão
         st.subheader("Matriz de Confusão")
-        try:
+        if os.path.exists("confusion_matrix.png"):
             st.image("confusion_matrix.png", caption="Matriz de Confusão", width=600)
-        except FileNotFoundError:
+        else:
             y_pred = model.predict(X_test)
             cm = confusion_matrix(y_test, y_pred)
             fig, ax = plt.subplots(figsize=(8, 6))
@@ -124,9 +124,9 @@ elif page == "Resultados":
         # Exemplos de previsões
         st.subheader("Exemplos de Previsões")
         st.markdown("Cinco imagens do conjunto de teste com rótulos verdadeiros e previstos:")
-        try:
+        if os.path.exists("predictions.png"):
             st.image("predictions.png", caption="Exemplos de Previsões", width=600)
-        except FileNotFoundError:
+        else:
             cols = st.columns(5)
             for i in range(5):
                 image = X_test[i].reshape(28, 28)
@@ -139,15 +139,35 @@ elif page == "Resultados":
 elif page == "Sobre o Projeto":
     st.title("Sobre o Projeto")
     st.markdown("""
-    Este projeto foi desenvolvido para a disciplina de Engenharia do Conhecimento na UMN-ISPH. Utiliza o dataset MNIST, com 70.000 imagens de dígitos manuscritos, para treinar um modelo SVM com kernel RBF, alcançando **97% de acurácia**. A aplicação permite:
-    - Desenhar dígitos em um canvas interativo.
-    - Carregar imagens para previsão.
-    - Visualizar resultados como matriz de confusão e exemplos de previsões.
+    Este projeto, desenvolvido para a disciplina de **Engenharia do Conhecimento** na UMN-ISPH, utiliza o dataset MNIST com 70.000 imagens de dígitos manuscritos para treinar um modelo SVM com kernel RBF, alcançando uma **acurácia de 97%**. A aplicação Streamlit permite interação dinâmica com o modelo, oferecendo:
     """)
-    try:
-        st.image("project_image.png", caption="Reconhecimento de Dígitos", width=600)
-    except FileNotFoundError:
-        st.warning("Imagem do projeto não encontrada.")
+
+    # Layout em colunas
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        ### Objetivo
+        Classificar dígitos manuscritos de 0 a 9 com alta precisão, aplicando técnicas de aprendizado de máquina supervisionado.
+
+        ### Metodologia
+        - **Dataset**: MNIST, com 60.000 imagens de treino e 10.000 de teste.
+        - **Pré-processamento**: Normalização dos pixels para [0,1] e achatamento em vetores de 784 dimensões.
+        - **Modelo**: SVM com kernel RBF (C=1.0, random_state=42).
+        - **Avaliação**: Acurácia de 97%, com análise de falsos positivos/negativos.
+
+        ### Funcionalidades
+        - **Desenhar Dígitos**: Canvas interativo para previsão em tempo real.
+        - **Carregar Imagens**: Suporte a imagens PNG/JPG 28x28.
+        - **Resultados**: Matriz de confusão e exemplos de previsões.
+
+        ### Impacto
+        Este projeto demonstra a eficácia do SVM em tarefas de visão computacional, com potencial para aplicações em OCR e automação bancária.
+        """)
+    with col2:
+        if os.path.exists("new_project_image.png"):
+            st.image("new_project_image.png", caption="Reconhecimento de Dígitos", use_column_width=True)
+        else:
+            st.warning("Imagem do projeto não encontrada.")
 
 # Página Sobre Mim
 elif page == "Sobre Mim":
