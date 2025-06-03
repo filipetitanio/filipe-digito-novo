@@ -8,7 +8,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 import os
-import plotly.express as px
 
 # Configura página
 st.set_page_config(page_title="Reconhecimento de Dígitos - Filipe Tchivela", layout="wide")
@@ -55,7 +54,7 @@ if page == "Início":
     Bem-vindo à aplicação de reconhecimento de dígitos manuscritos! Este projeto utiliza um modelo SVM com kernel RBF, treinado no dataset MNIST, alcançando **97% de acurácia**. Navegue pelo menu para desenhar dígitos, carregar imagens, visualizar resultados ou saber mais sobre o projeto.
     """)
     try:
-        st.image("imagem_do_projecto.jpg", caption="Visão geral do projeto", width=600)
+        st.image("project_image.png", caption="Visão geral do projeto", width=600)
     except FileNotFoundError:
         st.warning("Imagem do projeto não encontrada.")
 
@@ -86,19 +85,8 @@ elif page == "Prever Dígito":
             image = image.resize((28, 28))
             image_array = np.array(image).reshape(1, -1) / 255.0
             prediction = model.predict(image_array)[0]
-            try:
-                probabilities = model.predict_proba(image_array)[0]
-            except AttributeError:
-                probabilities = np.ones(10) / 10  # Fallback se predict_proba não disponível
-
-            col1, col2 = st.columns([1, 2])
-            with col1:
-                st.image(image, caption="Dígito Desenhado", width=100)
-                st.markdown(f"**Dígito Previsto: {prediction}**")
-            with col2:
-                fig = px.bar(x=range(10), y=probabilities, labels={'x': 'Dígito', 'y': 'Probabilidade'},
-                             title="Probabilidades de Classe", color=probabilities, color_continuous_scale="Blues")
-                st.plotly_chart(fig, use_container_width=True)
+            st.image(image, caption="Dígito Desenhado", width=100)
+            st.markdown(f"**Dígito Previsto: {prediction}**")
 
     with tab2:
         st.subheader("Carregar Imagem")
@@ -110,19 +98,8 @@ elif page == "Prever Dígito":
             image = image.resize((28, 28))
             image_array = np.array(image).reshape(1, -1) / 255.0
             prediction = model.predict(image_array)[0]
-            try:
-                probabilities = model.predict_proba(image_array)[0]
-            except AttributeError:
-                probabilities = np.ones(10) / 10  # Fallback
-
-            col1, col2 = st.columns([1, 2])
-            with col1:
-                st.image(image, caption="Imagem Carregada", width=100)
-                st.markdown(f"**Dígito Previsto: {prediction}**")
-            with col2:
-                fig = px.bar(x=range(10), y=probabilities, labels={'x': 'Dígito', 'y': 'Probabilidade'},
-                             title="Probabilidades de Classe", color=probabilities, color_continuous_scale="Blues")
-                st.plotly_chart(fig, use_container_width=True)
+            st.image(image, caption="Imagem Carregada", width=100)
+            st.markdown(f"**Dígito Previsto: {prediction}**")
 
 # Página Resultados
 elif page == "Resultados":
@@ -162,7 +139,7 @@ elif page == "Resultados":
 elif page == "Sobre o Projeto":
     st.title("Sobre o Projeto")
     st.markdown("""
-    Este projeto foi desenvolvido para a disciplina de Engenharia do Conhecimento na UFMG. Utiliza o dataset MNIST, com 70.000 imagens de dígitos manuscritos, para treinar um modelo SVM com kernel RBF, alcançando **97% de acurácia**. A aplicação permite:
+    Este projeto foi desenvolvido para a disciplina de Engenharia do Conhecimento na UMN-ISPH. Utiliza o dataset MNIST, com 70.000 imagens de dígitos manuscritos, para treinar um modelo SVM com kernel RBF, alcançando **97% de acurácia**. A aplicação permite:
     - Desenhar dígitos em um canvas interativo.
     - Carregar imagens para previsão.
     - Visualizar resultados como matriz de confusão e exemplos de previsões.
@@ -177,105 +154,9 @@ elif page == "Sobre Mim":
     st.title("Sobre Mim")
     st.markdown("""
     - **Nome**: Filipe Tchivela
-    - **Número de Estudante**: 202346
-    - **Curso**: Ciência da Informação
-    - **Instituição**: UFMG
+    - **Número de Estudante**: 2022142110
+    - **Curso**: Ciência da Computação
+    - **Instituição**: UMN-ISPH
     - **Contacto**: +946715031
-    - **E-mail**: filipetischio@gmail.com
+    - **E-mail**: filipetchivela2000@gmail.com
     """)
-
-# Criar style.css
-%%writefile style.css
-/* Fundo estilizado com gradiente */
-body {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Estiliza o título principal */
-h1 {
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    font-size: 2.5em;
-    text-align: center;
-}
-
-/* Estiliza cabeçalhos */
-h2, h3 {
-    color: #e0e0e0;
-}
-
-/* Estiliza a barra lateral */
-.stSidebar {
-    background-color: #0f1e3d;
-    padding: 20px;
-}
-
-.stSidebar .stRadio > label {
-    color: #ffffff;
-    font-weight: bold;
-}
-
-/* Estiliza botões */
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* Estiliza abas */
-.stTabs button {
-    background-color: #1e3c72;
-    color: #ffffff;
-    border-radius: 5px 5px 0 0;
-}
-
-.stTabs button:hover {
-    background-color: #2a5298;
-}
-
-/* Estiliza o canvas */
-canvas {
-    border: 2px solid #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Estiliza imagens */
-img {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Texto destacado */
-strong {
-    color: #4CAF50;
-}
-
-# Criar requirements.txt
-%%writefile requirements.txt
-streamlit==1.36.0
-numpy==1.26.4
-pillow==10.4.0
-joblib==1.4.2
-scikit-learn==1.5.0
-streamlit-drawable-canvas==0.9.3
-pandas==2.2.2
-seaborn==0.13.2
-matplotlib==3.9.0
-plotly==5.22.0
-
-# Criar project_image.png
-import matplotlib.pyplot as plt
-plt.figure(figsize=(6, 4))
-plt.text(0.5, 0.5, "Reconhecimento de Dígitos\nMNIST", fontsize=20, ha='center', va='center')
-plt.axis('off')
-plt.savefig('project_image.png')
