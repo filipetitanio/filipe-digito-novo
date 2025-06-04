@@ -53,8 +53,8 @@ if page == "Início":
     st.markdown("""
     Bem-vindo à aplicação de reconhecimento de dígitos manuscritos! Este projeto utiliza um modelo SVM com kernel RBF, treinado no dataset MNIST, alcançando **97% de acurácia**. Navegue pelo menu para desenhar dígitos, carregar imagens, visualizar resultados ou saber mais sobre o projeto.
     """)
-    if os.path.exists("imagem_do_projeto.jpg"):
-        st.image("imagem_do_projeto.jpg", caption="Visão geral do projeto", use_column_width=True)
+    if os.path.exists("project_image.jpg"):
+        st.image("project_image.jpg", caption="Visão geral do projeto", use_column_width=True)
     else:
         st.warning("Imagem do projeto não encontrada.")
 
@@ -164,8 +164,8 @@ elif page == "Sobre o Projeto":
         Este projeto demonstra a eficácia do SVM em tarefas de visão computacional, com potencial para aplicações em OCR e automação bancária.
         """)
     with col2:
-        if os.path.exists("imagem_do_projeto.jpg"):
-            st.image("imagem_do_projeto.jpg", caption="Reconhecimento de Dígitos", use_column_width=True)
+        if os.path.exists("project_image.jpg"):
+            st.image("project_image.jpg", caption="Reconhecimento de Dígitos", use_column_width=True)
         else:
             st.warning("Imagem do projeto não encontrada.")
 
