@@ -77,7 +77,7 @@ elif page == "Prever Dígito":
             height=150,
             width=150,
             drawing_mode="freedraw",
-            key="canvas_unique",  # Chave única para evitar conflitos
+            key="canvas_unique",
         )
 
         if canvas_result.image_data is not None:
@@ -172,11 +172,19 @@ elif page == "Sobre o Projeto":
 # Página Sobre Mim
 elif page == "Sobre Mim":
     st.title("Sobre Mim")
-    st.markdown("""
-    - **Nome**: Filipe Tchivela
-    - **Número de Estudante**: 2022142110
-    - **Curso**: Ciência da Computação
-    - **Instituição**: UMN-ISPH
-    - **Contacto**: +946715031
-    - **E-mail**: filipetchivela2000@gmail.com
-    """)
+    # Layout em colunas para foto e dados
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        if os.path.exists("filipe_tchivela.JPG"):
+            st.image("filipe_tchivela.JPG", caption="Filipe Tchivela", width=200)
+        else:
+            st.warning("Foto não encontrada. Faça upload de filipe_tchivela.jpg.")
+    with col2:
+        st.markdown("""
+        - **Nome**: Filipe Tchivela
+        - **Número de Estudante**: 2022142110
+        - **Curso**: Ciência da Computação
+        - **Instituição**: UMN-ISPH
+        - **Contacto**: +946715031
+        - **E-mail**: filipetchivela2000@gmail.com
+        """)
