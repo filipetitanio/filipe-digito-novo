@@ -49,7 +49,7 @@ page = st.sidebar.radio("Selecione uma página:", ["Início", "Prever Dígito", 
 
 # Página Início
 if page == "Início":
-    st.title("Reconhecimento de Dígitos Manuscritos Filipe-Tchivela")
+    st.title("Reconhecimento de Dígitos Manuscritos")
     st.markdown("""
     Bem-vindo à aplicação de reconhecimento de dígitos manuscritos! Este projeto utiliza um modelo SVM com kernel RBF, treinado no dataset MNIST, alcançando **97% de acurácia**. Navegue pelo menu para desenhar dígitos, carregar imagens, visualizar resultados ou saber mais sobre o projeto.
     """)
