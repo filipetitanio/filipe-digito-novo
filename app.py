@@ -49,7 +49,7 @@ page = st.sidebar.radio("Selecione uma página:", ["Início", "Prever Dígito", 
 
 # Página Início
 if page == "Início":
-    st.title("Reconhecimento de Dígitos Manuscritos")
+    st.title("Reconhecimento de Dígitos Manuscritos Filipe-Tchivela")
     st.markdown("""
     Bem-vindo à aplicação de reconhecimento de dígitos manuscritos! Este projeto utiliza um modelo SVM com kernel RBF, treinado no dataset MNIST, alcançando **97% de acurácia**. Navegue pelo menu para desenhar dígitos, carregar imagens, visualizar resultados ou saber mais sobre o projeto.
     """)
@@ -139,7 +139,7 @@ elif page == "Resultados":
 elif page == "Sobre o Projeto":
     st.title("Sobre o Projeto")
     st.markdown("""
-    Este projeto, desenvolvido para a disciplina de **Engenharia do Conhecimento** na UMN-ISPH, utiliza o dataset MNIST com 70.000 imagens de dígitos manuscritos para treinar um modelo SVM com kernel RBF, alcançando uma **acurácia de 97%**. A aplicação Streamlit permite interação dinâmica com o modelo, oferecendo:
+    Este projeto, desenvolvido para a disciplina de **Aprendizagem Computacional** na UMN-ISPH, utiliza o dataset MNIST com 70.000 imagens de dígitos manuscritos para treinar um modelo SVM com kernel RBF, alcançando uma **acurácia de 97%**. A aplicação Streamlit permite interação dinâmica com o modelo, oferecendo:
     """)
 
     # Layout em colunas
